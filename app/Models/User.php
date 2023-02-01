@@ -42,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $guard_name = 'api';
+
+    public function freelancer() {
+        return $this->hasOne(Freelancer::class);
+    }
+    
+
 }
