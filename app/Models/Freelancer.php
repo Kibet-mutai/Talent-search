@@ -10,23 +10,24 @@ class Freelancer extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'user_id',
-    //     'first_name',
-    //     'last_name',
-    //     'gender',
-    //     'location',
-    //     'resume',
-    //     'image'
-    // ];
+    protected $fillable = [
+        'user_id',
+        'first_name',
+        'last_name',
+        'gender',
+        'location',
+        'resume',
+        'image',
+        'skills'
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class);
+    // }
 }

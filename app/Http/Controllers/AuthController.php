@@ -20,7 +20,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users|email',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|between:8,255|confirmed'
         ]);
         $user = User::create([
             'name' => $data['name'],
@@ -57,7 +57,7 @@ class AuthController extends Controller
      * Login User
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function sign_in(Request $request)
     {
@@ -67,11 +67,11 @@ class AuthController extends Controller
         ]);
         //confirm email
 
-        $user = User::where('eamil', $data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
 
         //confirm password
 
-        if($user || !Hash::check($data['password'], $user->password)) {
+        if(!$user || !Hash::check($data['password'], $user->password)) {
             return response([
                 'message' => 'Invalid email or password'
             ], 401);
