@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FreelanceController;
 
 /*
@@ -22,6 +23,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/profile/edit/{id}', [FreelanceController::class, 'update_profile']);
     Route::post('/profile/delete/{id}', [FreelanceController::class, 'delete_profile']);
     Route::get('/profile/{id}', [FreelanceController::class, 'profile_detail']);
+
+
+    // Employers Routes
+
+   
+    Route::post('/employer/create', [EmployerController::class, 'store']);
+    Route::delete('/employer/delete/{id}', [EmployerController::class, 'destroy']);
+    Route::get('/employer{id}', [EmployerController::class, 'show']);
 
     Route::post('/logout', [Authcontroller::class, 'logout']);
 });

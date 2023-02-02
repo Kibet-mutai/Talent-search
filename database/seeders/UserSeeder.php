@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employer;
 use App\Models\Freelancer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
                 }
             );
         User::factory()->count(15)
+            ->has(Employer::factory(1))
             ->create()
             ->each(
                 function ($user) {
