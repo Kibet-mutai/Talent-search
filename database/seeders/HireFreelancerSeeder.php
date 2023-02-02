@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employer;
+use App\Models\HireFreelancer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class EmployerSeeder extends Seeder
+class HireFreelancerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class EmployerSeeder extends Seeder
      */
     public function run()
     {
-        Employer::factory(15)->create();
+        HireFreelancer::factory(20)->create();
     }
 }
