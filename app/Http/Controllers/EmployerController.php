@@ -35,6 +35,7 @@ class EmployerController extends Controller
             'location' => 'required',
         ]);
         $data['user_id'] = Auth::user()->id;
+        
         Employer::create($data);
         return response()->json([
             'success' => 'Profile created successfully',

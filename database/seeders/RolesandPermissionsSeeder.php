@@ -31,8 +31,13 @@ class RolesandPermissionsSeeder extends Seeder
         $viewFreelancer = 'view_freelancer';
         $hireFreelancer = 'hire_freelancer';
         $interviewFreelancer = 'interview_freelancer';
+        $createEmployer = 'create_employer';
+        $editEmployer = 'edit_employer';
+        $deleteEmployer = 'delete_employer';
 
         $createProfile = 'create_profile';
+        $editProfile = 'edit_profile';
+        $deleteProfile = 'delete_employer';
         $viewEmployer = 'view_employer';
 
         Permission::create(['name'=>$addNewUser]);
@@ -43,11 +48,18 @@ class RolesandPermissionsSeeder extends Seeder
         Permission::create(['name'=>$suspendFreelancer]);
         Permission::create(['name'=>$approveFreelancer]);
 
+
+        Permission::create(['name' => $createEmployer]);
+        Permission::create(['name' => $editEmployer]);
+        Permission::create(['name' => $deleteEmployer]);
         Permission::create(['name'=>$viewFreelancer]);
         Permission::create(['name'=>$hireFreelancer]);
         Permission::create(['name'=>$interviewFreelancer]);
 
+
         Permission::create(['name'=>$createProfile]);
+        Permission::create(['name'=>$editProfile]);
+        Permission::create(['name'=>$deleteProfile]);
         Permission::create(['name'=>$viewEmployer]);
 
         //Roles for users

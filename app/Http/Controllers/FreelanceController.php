@@ -77,7 +77,7 @@ class FreelanceController extends Controller
     {
        
         $freelancer = Freelancer::findOrFail($id);
-        dd($freelancer);
+        // dd($freelancer);
         if ($freelancer->user_id != auth()->user()->id) {
             return response()->json(['error' => 'Unauthorized access'], 401);
         }

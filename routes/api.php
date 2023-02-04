@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FreelanceController;
+use App\Http\Controllers\HireFreelancerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,22 +19,33 @@ use App\Http\Controllers\FreelanceController;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/profile', [FreelanceController::class, 'view_profile']);
-    Route::post('/profile/create', [FreelanceController::class, 'create_profile']);
-    Route::put('/profile/edit/{id}', [FreelanceController::class, 'update_profile']);
-    Route::post('/profile/delete/{id}', [FreelanceController::class, 'delete_profile']);
-    Route::get('/profile/{id}', [FreelanceController::class, 'profile_detail']);
+
+    Route::group(['prefix' => 'freelancer'], function () {
+        Route::get('/profile', [FreelanceController::class, 'view_profile']);
+        Route::post('/create', [FreelanceController::class, 'create_profile']);
+        Route::put('/edit/{id}', [FreelanceController::class, 'update_profile']);
+        Route::post('/delete/{id}', [FreelanceController::class, 'delete_profile']);
+        Route::get('/{id}', [FreelanceController::class, 'profile_detail']);
+    }
+    );
+
+   
 
 
     // Employers Routes
 
-   
-    Route::post('/employer/create', [EmployerController::class, 'store']);
-    Route::delete('/employer/delete/{id}', [EmployerController::class, 'destroy']);
-    Route::get('/employer{id}', [EmployerController::class, 'show']);
+    Route::group(['prefix' => 'employer'], function () {
+        Route::post('/create', [EmployerController::class, 'store']);
+        Route::delete('/delete/{id}', [EmployerController::class, 'destroy']);
+        Route::get('/{id}', [EmployerController::class, 'show']);
+
+        Route::post('/hire_freelancer', [HireFreelancerController::class, 'hireFreelancer']);
+    }
+    );
+    
 
     Route::post('/logout', [Authcontroller::class, 'logout']);
-});
 
+});
 Route::post('/register', [Authcontroller::class, 'Signup']);
 Route::post('/login', [Authcontroller::class, 'sign_in']);
