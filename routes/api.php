@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Employers Routes
 
     Route::group(['prefix' => 'employer'], function () {
+        Route::get('/profile', [EmployerController::class, 'index']);
         Route::post('/create', [EmployerController::class, 'store']);
         Route::delete('/delete/{id}', [EmployerController::class, 'destroy']);
         Route::get('/{id}', [EmployerController::class, 'show']);

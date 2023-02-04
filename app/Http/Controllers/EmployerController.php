@@ -16,7 +16,10 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        //
+        $employer = Employer::paginate(5);
+        return response()->json([
+            'data' => $employer
+        ]);
     }
 
     /**

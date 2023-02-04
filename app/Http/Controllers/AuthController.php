@@ -38,9 +38,12 @@ class AuthController extends Controller
             $freelancer->save();
         }
 
-        if ($request->role === 'employer') {
+        if ($request->role === 2) {
             $employer = new Employer();
-            $employer->user_id = $user->id;
+            $employer->name = $request->name;
+            $employer->email = $request->email;
+            $employer->password = Hash::make($request->password);
+            $employer->role_id = 2;
             $employer->save();
         }
 
