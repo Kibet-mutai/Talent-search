@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [Authcontroller::class, 'logout']);
 
 });
+
+//search
 Route::get('/search', [FreelanceController::class, 'search'])->middleware(['auth:sanctum']);
 
 Route::post('/register', [Authcontroller::class, 'Signup']);

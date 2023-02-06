@@ -19,6 +19,8 @@ class FreelanceController extends Controller
         return response()->json(['data' => $freelancers]);
     }
 
+
+    //search controller    
     public function search(Request $request)
     {
         try 
