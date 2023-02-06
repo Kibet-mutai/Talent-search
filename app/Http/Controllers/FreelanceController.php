@@ -19,6 +19,26 @@ class FreelanceController extends Controller
         return response()->json(['data' => $freelancers]);
     }
 
+    public function search(Request $request)
+    {
+        try 
+        {
+            $search = $request->input('search');
+            $freelancers = Freelancer::where('first_name', 'like', '%' . $search . '%')
+                                ->orWhere('location', 'like', '%' . $search . '%')
+                                ->orWhere('skills', 'like', '%' . $search . '%')
+                                ->get();
+                
+            if (!$freelancers->count()) {
+                throw new \Exception("No results found for the search query.");
+            }
+    
+            return response()->json(['freelancers' => $freelancers]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
