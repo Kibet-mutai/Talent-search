@@ -20,26 +20,56 @@ class FreelanceController extends Controller
     }
 
 
-    //search controller    
+    //search controller
     public function search(Request $request)
     {
-        try 
+        try
         {
             $search = $request->input('search');
             $freelancers = Freelancer::where('first_name', 'like', '%' . $search . '%')
                                 ->orWhere('location', 'like', '%' . $search . '%')
                                 ->orWhere('skills', 'like', '%' . $search . '%')
                                 ->get();
-                
+
             if (!$freelancers->count()) {
                 throw new \Exception("No results found for the search query.");
             }
-    
+
             return response()->json(['freelancers' => $freelancers]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
+
+
+    //filter controller by ratings
+
+    public function filter(Request $request)
+    {
+        try {
+            $skill = $request->input('rating');
+            $freelancers = Freelancer::whereHas('review', function ($query) use ($skill) {
+                $query->where('rating', $skill);
+            })->get();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $freelancers
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -72,7 +102,7 @@ class FreelanceController extends Controller
         return response()->json([
             'success' => 'Profile created successfully',
             'validated_data' => $validatedData
-        ]);
+        ], 201);
     }
 
     /**
@@ -97,7 +127,7 @@ class FreelanceController extends Controller
      */
     public function update_profile(Request $request, $id)
     {
-       
+
         $freelancer = Freelancer::findOrFail($id);
         // dd($freelancer);
         if ($freelancer->user_id != auth()->user()->id) {
@@ -112,7 +142,7 @@ class FreelanceController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'resume' => 'nullable|mimes:docx,pdf'
         ]);
-    
+
         if ($request->hasFile('image') && $request->hasFile('resume')) {
             $validatedData['image'] = $request->file('image')->store('images', 'public');
             $validatedData['resume'] = $request->file('resume')->store('resume', 'public');

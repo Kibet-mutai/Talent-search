@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FreelanceController;
 use App\Http\Controllers\HireFreelancerController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //search
 Route::get('/search', [FreelanceController::class, 'search'])->middleware(['auth:sanctum']);
-Route::post('review', [ReviewController::class, 'create_review'])->middleware(['auth:sanctum']);
+Route::post('/review', [ReviewController::class, 'create_review'])->middleware(['auth:sanctum']);
+Route::get('/filter', [FreelanceController::class, 'filter'])->middleware(['auth:sanctum']);
 Route::post('/register', [Authcontroller::class, 'Signup']);
 Route::post('/login', [Authcontroller::class, 'sign_in']);
