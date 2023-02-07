@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employer_id')->constrained('employers')->restrictOnDelete();
+            $table->foreignId('freelancer_id')->constrained('freelancers')->cascadeOnDelete();
+            $table->enum('rating', [1, 2, 3, 4, 5]);
+            $table->string('review')->nullable();
             $table->timestamps();
         });
     }

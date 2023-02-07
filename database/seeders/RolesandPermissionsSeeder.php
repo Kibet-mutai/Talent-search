@@ -20,8 +20,8 @@ class RolesandPermissionsSeeder extends Seeder
 
         //permisions for app
 
-        $addNewUser = 'add_new_user';
-        $editUserInfo = 'edit_user_info';
+        $addUser = 'add_user';
+        $editUser = 'edit_user';
         $destroyUser = 'delete_user';
         $suspendEmployer = 'suspend_employer';
         $approveEmployer = 'approve_employer';
@@ -33,15 +33,15 @@ class RolesandPermissionsSeeder extends Seeder
         $interviewFreelancer = 'interview_freelancer';
         $createEmployer = 'create_employer';
         $editEmployer = 'edit_employer';
-        $deleteEmployer = 'delete_employer';
+        $deleteEmployerProfile = 'delete_employer_profile';
 
         $createProfile = 'create_profile';
         $editProfile = 'edit_profile';
         $deleteProfile = 'delete_employer';
         $viewEmployer = 'view_employer';
 
-        Permission::create(['name'=>$addNewUser]);
-        Permission::create(['name'=>$editUserInfo]);
+        Permission::create(['name'=>$addUser]);
+        Permission::create(['name'=>$editUser]);
         Permission::create(['name'=>$destroyUser]);
         Permission::create(['name'=>$suspendEmployer]);
         Permission::create(['name'=>$approveEmployer]);
@@ -51,7 +51,7 @@ class RolesandPermissionsSeeder extends Seeder
 
         Permission::create(['name' => $createEmployer]);
         Permission::create(['name' => $editEmployer]);
-        Permission::create(['name' => $deleteEmployer]);
+        Permission::create(['name' => $deleteEmployerProfile]);
         Permission::create(['name'=>$viewFreelancer]);
         Permission::create(['name'=>$hireFreelancer]);
         Permission::create(['name'=>$interviewFreelancer]);
@@ -75,12 +75,17 @@ class RolesandPermissionsSeeder extends Seeder
             ->givePermissionTo([
                 $viewFreelancer,
                 $hireFreelancer,
-                $interviewFreelancer
+                $interviewFreelancer,
+                $createEmployer,
+                $deleteEmployerProfile,
+                $editEmployer
             ]);
 
         Role::create(['name' => $freelancer])
             ->givePermissionTo([
                 $createProfile,
+                $editProfile,
+                $deleteProfile,
                 $viewEmployer
             ]);
     }
