@@ -9,7 +9,12 @@ class Review extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = [
+        'employer_id',
+        'freelancer_id',
+        'rating',
+        'review'
+    ];
 
 
     public function freelancer() {
