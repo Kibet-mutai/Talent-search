@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     }
     );
 
-   
+
 
 
     // Employers Routes
@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/hire_freelancer', [HireFreelancerController::class, 'hireFreelancer']);
     }
     );
-    
+
 
     Route::post('/logout', [Authcontroller::class, 'logout']);
 
@@ -51,6 +51,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //search
 Route::get('/search', [FreelanceController::class, 'search'])->middleware(['auth:sanctum']);
-
+Route::post('review', [ReviewController::class, 'create_review'])->middleware(['auth:sanctum']);
 Route::post('/register', [Authcontroller::class, 'Signup']);
 Route::post('/login', [Authcontroller::class, 'sign_in']);
