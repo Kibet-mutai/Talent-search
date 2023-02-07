@@ -30,7 +30,12 @@ class Freelancer extends Model
     // {
     //     return $this->belongsTo(Role::class);
     // }
-    public function freelancers() {
+    public function employer() {
         return $this->belongsToMany(Employer::class);
+    }
+
+
+    public function review() {
+        return $this->hasMany(Review::class);
     }
 }
