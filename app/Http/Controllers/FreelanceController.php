@@ -47,9 +47,9 @@ class FreelanceController extends Controller
     public function filter(Request $request)
     {
         try {
-            $skill = $request->input('rating');
-            $freelancers = Freelancer::whereHas('review', function ($query) use ($skill) {
-                $query->where('rating', $skill);
+            $review = $request->input('rating');
+            $freelancers = Freelancer::whereHas('review', function ($query) use ($review) {
+                $query->where('rating', $review);
             })->get();
 
             return response()->json([
