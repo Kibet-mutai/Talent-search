@@ -30,6 +30,10 @@ class EmployerController extends Controller
      */
     public function store(StoreEmployerRequest $request)
     {
+        $user = Auth::user();
+        if($user->employer) {
+            return response()->json(['message' => 'You already have employer Account!']);
+        }
         $data = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -38,7 +42,7 @@ class EmployerController extends Controller
             'location' => 'required',
         ]);
         $data['user_id'] = Auth::user()->id;
-        
+
         Employer::create($data);
         return response()->json([
             'success' => 'Profile created successfully',
