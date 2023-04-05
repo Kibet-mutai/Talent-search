@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-   
+
     /**
      * Register User
      *
@@ -38,12 +38,13 @@ class AuthController extends Controller
             $freelancer->save();
         }
 
-        if ($request->role === 2) {
+        if ($request->role === 'employer') {
             $employer = new Employer();
-            $employer->name = $request->name;
-            $employer->email = $request->email;
-            $employer->password = Hash::make($request->password);
-            $employer->role_id = 2;
+            // $employer->name = $request->name;
+            // $employer->email = $request->email;
+            // $employer->password = Hash::make($request->password);
+            // $employer->role_id = 2;
+            $employer->user_id = $user->id;
             $employer->save();
         }
 
@@ -55,9 +56,9 @@ class AuthController extends Controller
             'role' => $data['role']
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
-    
+
 
     /**
      *
@@ -77,7 +78,7 @@ class AuthController extends Controller
      * Login User
      *
      * @param  \Illuminate\Http\Request  $request
-     * 
+     *
      */
     public function sign_in(Request $request)
     {
@@ -91,7 +92,7 @@ class AuthController extends Controller
 
         //confirm password
 
-        if(!$user || !Hash::check($data['password'], $user->password)) {
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             return response([
                 'message' => 'Invalid email or password'
             ], 401);
@@ -103,6 +104,6 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 }
