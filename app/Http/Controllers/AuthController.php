@@ -22,14 +22,14 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users|email',
-            'password' => 'required|between:8,255|confirmed',
-            'role' => 'required|string',
+            'password' => 'required|between:8,255',
+            'role' => 'required',
         ]);
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            // 'role' => $data['role']
+            'role' => $data['role']
         ]);
 
         if ($request->role === 'freelancer') {
@@ -55,7 +55,7 @@ class AuthController extends Controller
             'token' => $token,
             'role' => $data['role']
         ];
-
+	//dd($request->all())
         return response($response, 200);
     }
 
